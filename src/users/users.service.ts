@@ -17,11 +17,15 @@ export class UsersService {
         private readonly passportSchema: Model<PassportDocument>
     ) {}
 
-    public async findOne(where: UserFindInterface) {
+    public async findOne(
+        where: UserFindInterface
+    ): Promise<User | UserDocument> {
         return this.usersSchema.findOne(where);
     }
 
-    public async saveUser(saveUserDto: SaveUserDto) {
+    public async saveUser(
+        saveUserDto: SaveUserDto
+    ): Promise<User | UserDocument> {
         const user = await this.usersSchema.create(saveUserDto);
 
         await this.passportSchema.create({
@@ -33,7 +37,9 @@ export class UsersService {
         return user;
     }
 
-    public async findOnePassport(where: PassportFindInterface) {
+    public async findOnePassport(
+        where: PassportFindInterface
+    ): Promise<Passport | PassportDocument> {
         return this.passportSchema.findOne(where).select('+password');
     }
 }

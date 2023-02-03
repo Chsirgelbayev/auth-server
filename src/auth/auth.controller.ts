@@ -26,7 +26,13 @@ export class AuthController {
         @Body() registerDto: RegisterDto,
         @Res() res: Response
     ) {
-        return await this.authService.register(registerDto);
+        const { accessToken, refreshToken, cookieSettings } =
+            await this.authService.register(registerDto);
+
+        return res
+            .cookie('accessToken', accessToken, cookieSettings)
+            .cookie('refreshToken', refreshToken, cookieSettings)
+            .json({ accessToken, refreshToken });
     }
 
     @Get('me')

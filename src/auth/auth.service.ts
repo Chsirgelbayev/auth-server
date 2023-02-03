@@ -8,6 +8,7 @@ import { LoginDto } from './dto/login.dto';
 import { UsersService } from 'src/users/users.service';
 import { TokenService } from 'src/token/token.service';
 import { RegisterDto } from './dto/register.dto';
+import { User, UserDocument } from 'src/users/schema/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,10 @@ export class AuthService {
         private readonly tokensService: TokenService
     ) {}
 
-    public async validateUser(email: string, password: string) {
+    public async validateUser(
+        email: string,
+        password: string
+    ): Promise<User | UserDocument> {
         const user = await this.usersService.findOne({ email });
         const passport = await this.usersService.findOnePassport({
             userId: user._id

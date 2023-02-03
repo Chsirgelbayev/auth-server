@@ -27,7 +27,7 @@ export class AuthJwtGuard implements CanActivate {
         }
 
         if (!token) {
-            throw new UnauthorizedException('');
+            throw new UnauthorizedException();
         }
 
         try {

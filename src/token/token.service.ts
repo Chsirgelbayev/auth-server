@@ -13,7 +13,7 @@ export class TokenService {
 
     public async generate(user: JwtPayloadInterface | User) {
         const payload = {
-            id: user.id,
+            id: user._id,
             email: user.email
         };
 
@@ -43,7 +43,9 @@ export class TokenService {
         };
     }
 
-    public async verifyRefreshToken(token: string) {
+    public async verifyRefreshToken(
+        token: string
+    ): Promise<JwtPayloadInterface> {
         return this.jwtService.verify(token);
     }
 }
